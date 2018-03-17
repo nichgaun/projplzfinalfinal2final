@@ -13,13 +13,18 @@ public class PlayerMovement : MonoBehaviour {
 	public float jump_time = 1f;
 
 	bool grounded = false;
+	bool jumping = false;
 
-	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 	}
-	
-	// Update is called once per frame
+
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			jumping = true;
+		}
+	}
+
 	void FixedUpdate () {
 
 		//movement
@@ -52,8 +57,9 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		velocity.y += gravity * Time.deltaTime;
 
-		if (Input.GetKeyDown (KeyCode.Space) && grounded) {
+		if (jumping && grounded) {
 			velocity.y = jump_speed;
+			jumping = false;
 		}
 
 		rb.velocity = velocity;

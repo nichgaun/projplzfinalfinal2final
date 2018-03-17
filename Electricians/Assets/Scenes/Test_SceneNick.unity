@@ -236,7 +236,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move_speed: 7
-  acceleration: 45
+  acceleration: 150
+  jump_height: 3
+  jump_time: 0.5
 --- !u!1 &344012297
 GameObject:
   m_ObjectHideFlags: 0
