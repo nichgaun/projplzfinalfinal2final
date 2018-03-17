@@ -12,6 +12,7 @@ public class Attacker : MonoBehaviour {
 	public float active_time = 1f;
 	public float cannonActiveTime = 1f;
 	public float cannonAimSpeed = 2f;
+    public float taserSpeed = 10f;
 
 	private bool cannonAiming;
     public bool taserShooting;
