@@ -12,7 +12,7 @@ public class Capturer : MonoBehaviour {
     public Color faction;
 
     //Initializes the outlets and bitcoins
-    private void Start() {
+    private void Start () {
         outlets = 0;
         bitcoin = 0;
     }
@@ -66,13 +66,13 @@ public class Capturer : MonoBehaviour {
     }
 
     //Removes a thing when it is captured by another player
-    public void Uncapture(GameObject other) {
+    public void Uncapture (GameObject other) {
         if (IsOutlet(other))
             outlets--;
         captured.Remove(other);
     }
 
-    void StopCapture() {
+    void StopCapture () {
         timeToCap = 0;
         isCaping = false;
     }

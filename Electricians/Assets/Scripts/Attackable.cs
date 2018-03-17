@@ -11,8 +11,15 @@ public class Attackable : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		Knockback kb = other.GetComponent<Knockback>();
+        PlayerMovement pm = GetComponent<PlayerMovement>();
+
 		if (kb != null) {
-			GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, -kb.force));
+            if (pm.grounded) {
+                Debug.Log("ded");
+            } else {
+                Debug.Log("zapped");
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
+            }
 		}
 	}
 }
