@@ -15,6 +15,6 @@ public class StairWalker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		going_up = Input.GetKey (KeyCode.W) || (cc.controller != null && cc.controller.LeftStickY > 0.5);
-		going_down = Input.GetKey (KeyCode.S) || (cc.controller != null && cc.controller.LeftStickY > 0.5);
+		going_down = Input.GetKey (KeyCode.S) || (cc.controller != null && cc.controller.LeftStickY < -0.5);
 	}
 }
