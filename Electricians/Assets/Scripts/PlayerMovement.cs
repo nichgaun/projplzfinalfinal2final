@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody2D rb;
 
-	public float move_speed = 5f;
-	public float acceleration = 35f;
+    public float move_speed = 5f;
+    public float acceleration = 35f;
 
 	public float jump_height = 1f;
 	public float jump_time = 1f;

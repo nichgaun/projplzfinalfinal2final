@@ -20,9 +20,11 @@ public class Capturer : MonoBehaviour {
     //Is called by a capturable dude when it can be captured by this guy
     public void CanCapture (GameObject c, bool b) {
         if (c != null) {
-            if (b)
+            if (b) {
                 capturable = c;
-            else {
+                if (Input.GetKey("e"))
+                    AttemptCapture();
+            } else {
                 capturable = null;
                 StopCapture();
             }
@@ -31,10 +33,10 @@ public class Capturer : MonoBehaviour {
 
     //Debugging stuff, for now
     void Update () {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("e"))
             AttemptCapture();
 
-        if (Input.GetKeyUp("space"))
+        if (Input.GetKeyUp("e"))
             StopCapture();
 
         if (Input.GetKeyDown("c"))
@@ -82,13 +84,15 @@ public class Capturer : MonoBehaviour {
 
     //Captures a boy
     void Capture () {
-        Capturable c = capturable.GetComponent<Capturable>();
-        c.GetCaptured(this, faction);
+        if (capturable != null) {
+            Capturable c = capturable.GetComponent<Capturable>();
+            c.GetCaptured(this, faction);
 
-        if (!captured.Contains(capturable)) {
-            captured.Add(capturable);
-            if (IsOutlet(capturable))
-                outlets++;
+            if (!captured.Contains(capturable)) {
+                captured.Add(capturable);
+                if (IsOutlet(capturable))
+                    outlets++;
+            }
         }
     }
 }

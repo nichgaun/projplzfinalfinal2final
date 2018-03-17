@@ -17,7 +17,7 @@ public class Attackable : MonoBehaviour {
 	}
 
     void Update() {
-		if (Input.GetKeyDown("space")) {
+		if (Input.GetKeyDown("q")) {
 			StartCoroutine(fireWeapon());
 		}
     }
