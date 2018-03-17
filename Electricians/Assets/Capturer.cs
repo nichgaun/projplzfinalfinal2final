@@ -8,8 +8,7 @@ public class Capturer : MonoBehaviour {
     int outlets, bitcoin;
 
     //Initializes the outlets and bitcoins
-    private void Start()
-    {
+    private void Start() {
         outlets = 0;
         bitcoin = 0;
     }
@@ -60,9 +59,11 @@ public class Capturer : MonoBehaviour {
     void Capture () {
         Capturable c = capturable.GetComponent<Capturable>();
         c.GetCaptured(this);
-        captured.Add(capturable);
 
-        if (IsOutlet(capturable))
-            outlets++;
+        if (!captured.Contains(capturable)) {
+            captured.Add(capturable);
+            if (IsOutlet(capturable))
+                outlets++;
+        }
     }
 }

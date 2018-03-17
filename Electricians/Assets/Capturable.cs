@@ -14,11 +14,11 @@ public class Capturable : MonoBehaviour {
     }
 
     //Debugging so that I can uncapture things without other players
-    private void Update()
+    private void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            owner.Uncapture(gameObject);
+        if (Input.GetKeyDown(KeyCode.V)) {
+            if (owner != null)
+                owner.Uncapture(gameObject);
             GetUncaptured();
         }
 
