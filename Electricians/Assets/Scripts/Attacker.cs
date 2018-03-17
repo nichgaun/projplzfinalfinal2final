@@ -13,7 +13,7 @@ public class Attacker : MonoBehaviour {
 	public float cannonActiveTime = 1f;
 	public float cannonAimSpeed = 2f;
     public float taserCoolDown = 2f;
-    public float taserSpeed = 1000f;
+    public float taserSpeed = 10f;
 
 	private bool cannonAiming;
     public bool taserShooting;
@@ -29,7 +29,7 @@ public class Attacker : MonoBehaviour {
 	}
 
     void Update() {
-        
+
         if (GetComponent<ControllerController>().controller.RightTrigger.IsPressed) {
             fireTaser();
         }
@@ -87,6 +87,7 @@ public class Attacker : MonoBehaviour {
 	IEnumerator fireCannon() {
 		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, cannonBeam.transform.localScale.y / 2);
 		cannonBeam.SetActive (true);
+		Physics2D.IgnoreCollision (cannonBeam.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		yield return new WaitForSeconds(cannonActiveTime);
 		cannonBeam.SetActive (false);
 	}
