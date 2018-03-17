@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody2D rb;
+	ControllerController cc;
 
     public float move_speed = 5f;
     public float acceleration = 35f;
@@ -17,10 +19,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		cc = GetComponent<ControllerController> ();
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (cc.controller != null && cc.controller.Action1.IsPressed) {
 			jumping = true;
 		}
 	}
@@ -29,18 +32,23 @@ public class PlayerMovement : MonoBehaviour {
 
 		//movement
 		Vector2 DirectionalInput = Vector2.zero;
-		if (Input.GetKey(KeyCode.D)) {
-			DirectionalInput += new Vector2(1, 0);
+		if (cc.controller == null) {
+			if (Input.GetKey (KeyCode.D)) {
+				DirectionalInput += new Vector2 (1, 0);
+			}
+			if (Input.GetKey (KeyCode.S)) {
+				DirectionalInput += new Vector2 (0, 0);
+			}
+			if (Input.GetKey (KeyCode.A)) {
+				DirectionalInput += new Vector2 (-1, 0);
+			}
+			if (Input.GetKey (KeyCode.W)) {
+				DirectionalInput += new Vector2 (0, 0);
+			}
+		} else {
+			DirectionalInput.x = cc.controller.LeftStickX;
 		}
-		if (Input.GetKey(KeyCode.S)) {
-			DirectionalInput += new Vector2(0, 0);
-		}
-		if (Input.GetKey(KeyCode.A)) {
-			DirectionalInput += new Vector2(-1, 0);
-		}
-		if (Input.GetKey(KeyCode.W)) {
-			DirectionalInput += new Vector2 (0, 0);
-		}
+
 		float target_speed = DirectionalInput.x * move_speed;
 		float diff = target_speed - rb.velocity.x;
 		float step = Mathf.Sign (diff) * Mathf.Min (Mathf.Abs (diff), acceleration * Time.deltaTime);
@@ -52,7 +60,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		float jump_speed = 2 * jump_height / jump_time;
 		float gravity = -2 * jump_height / (jump_time * jump_time);
-		if (!Input.GetKey (KeyCode.Space) && velocity.y > 1e-3) {
+		if (cc.controller != null && !cc.controller.Action1.IsPressed && velocity.y > 1e-3) {
 			gravity *= 4;
 		}
 		velocity.y += gravity * Time.deltaTime;
@@ -65,6 +73,7 @@ public class PlayerMovement : MonoBehaviour {
 		rb.velocity = velocity;
 
 		grounded = false;
+		jumping = false;
 	}
 
 	void OnCollisionStay2D (Collision2D collision) {
