@@ -28,8 +28,18 @@ public class Capturer : MonoBehaviour {
 
         if (Input.GetKeyDown("c"))
             Debug.Log("Bitcoin: " + bitcoin + " Outlets: " + outlets);
+
+        if (Input.GetKeyDown("x"))
+            PowerSpike();
         //if (Input.GetKeyUp("space"))
         //    Uncapture();
+    }
+
+    void PowerSpike () {
+        foreach (GameObject g in captured) {
+            if (!IsOutlet(g))
+                bitcoin++;
+        }
     }
 
     bool IsOutlet (GameObject c) {
