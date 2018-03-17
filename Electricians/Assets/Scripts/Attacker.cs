@@ -27,11 +27,13 @@ public class Attacker : MonoBehaviour {
 		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
 			StartCoroutine(fireWeapon ());
 		}
-		bool nextCannonAiming = Input.GetKey ("e") && !cannonBeam.activeInHierarchy;
+		bool canCannon = GetComponent<Capturer>().outlets >= 2;
+		bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
 		if (cannonAiming) {
 			if (!nextCannonAiming) {
-				StartCoroutine (fireCannon ());
-				cannonReticule.SetActive (false);
+				if (canCannon) {
+					StartCoroutine (fireCannon ());
+				}
 			} else {
 				if (Input.GetKey ("d")) {
 					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
