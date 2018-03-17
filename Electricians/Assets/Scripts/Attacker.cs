@@ -41,7 +41,7 @@ public class Attacker : MonoBehaviour {
 				}
 			}
 		} else if (nextCannonAiming) {
-			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, 0);
+			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, cannonReticule.transform.localScale.y / 2);
 		}
 		cannonAiming = nextCannonAiming;
 		cannonReticule.SetActive (cannonAiming);
