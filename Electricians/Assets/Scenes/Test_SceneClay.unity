@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 82890725}
   - component: {fileID: 82890724}
   - component: {fileID: 82890728}
+  - component: {fileID: 82890730}
   - component: {fileID: 82890729}
   m_Layer: 0
   m_Name: Egg
@@ -237,6 +238,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1463587317529568, guid: 5103064c9d858e74d92f5539c98efe10, type: 2}
+  cannonReticule: {fileID: 1718683095673816, guid: 4056ccf04b00e4c4bb377f625c6f1343,
+    type: 2}
+  cannonBeam: {fileID: 1463587317529568, guid: 5103064c9d858e74d92f5539c98efe10, type: 2}
+  active_time: 1
+  cannonActiveTime: 3
 --- !u!114 &82890729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +254,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a9fbaadeda81147beab041eff09f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &82890730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 82890723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c00d27c0ae27e43841c28cbe70b33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move_speed: 5
+  acceleration: 35
+  jump_height: 1
+  jump_time: 1
+  grounded: 0
 --- !u!1 &344012297
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +468,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1463587317529568, guid: 5103064c9d858e74d92f5539c98efe10, type: 2}
+  cannonReticule: {fileID: 0}
+  cannonBeam: {fileID: 0}
+  active_time: 1
+  cannonActiveTime: 3
 --- !u!50 &806184289
 Rigidbody2D:
   serializedVersion: 4
