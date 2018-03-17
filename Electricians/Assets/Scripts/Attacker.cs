@@ -9,6 +9,9 @@ public class Attacker : MonoBehaviour {
 
 	public float active_time = 1f;
 	public float cannonActiveTime = 1f;
+	public float cannonAimSpeed = 2f;
+
+	private bool cannonAiming;
 
 	void Start() {
 		meleeWeapon = Instantiate (meleeWeapon, gameObject.transform, false);
@@ -17,16 +20,31 @@ public class Attacker : MonoBehaviour {
 		meleeWeapon.SetActive (false);
 		cannonReticule.SetActive (false);
 		cannonBeam.SetActive (false);
+		cannonAiming = false;
 	}
 
     void Update() {
 		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
 			StartCoroutine(fireWeapon ());
 		}
-		cannonReticule.SetActive(Input.GetKey("e") && !cannonReticule.activeInHierarchy);
-		if (Input.GetKeyUp ("e") && !cannonBeam.activeInHierarchy) {
-			StartCoroutine (fireCannon ());
+		bool nextCannonAiming = Input.GetKey ("e") && !cannonBeam.activeInHierarchy;
+		if (cannonAiming) {
+			if (!nextCannonAiming) {
+				StartCoroutine (fireCannon ());
+				cannonReticule.SetActive (false);
+			} else {
+				if (Input.GetKey ("d")) {
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, 0);
+				}
+				if (Input.GetKey ("a")) {
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, 0);
+				}
+			}
+		} else if (nextCannonAiming) {
+			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, 0);
 		}
+		cannonAiming = nextCannonAiming;
+		cannonReticule.SetActive (cannonAiming);
     }
 
 	IEnumerator fireWeapon() {
@@ -36,6 +54,7 @@ public class Attacker : MonoBehaviour {
 	}
 
 	IEnumerator fireCannon() {
+		cannonBeam.transform.position = cannonReticule.transform.position;
 		cannonBeam.SetActive (true);
 		yield return new WaitForSeconds(cannonActiveTime);
 		cannonBeam.SetActive (false);
