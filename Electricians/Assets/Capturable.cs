@@ -35,12 +35,13 @@ public class Capturable : MonoBehaviour {
     }
 
     //Gets captured by a player
-    public void GetCaptured (Capturer other) {
+    public void GetCaptured (Capturer other, Color c) {
         if (owner != null && other != owner)
             owner.Uncapture(gameObject);
 
         owner = other;
-        GetComponent<SpriteRenderer>().color = Color.blue;
+        //Debug.Log(c);
+        GetComponent<SpriteRenderer>().color = c;
     }
 
     //Only for debugging

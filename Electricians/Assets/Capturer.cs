@@ -6,6 +6,10 @@ public class Capturer : MonoBehaviour {
     GameObject capturable = null;
     List<GameObject> captured = new List<GameObject>();
     int outlets, bitcoin;
+    float timeToCap = 0;
+    bool isCaping;
+    const float CAPTURE_TIME = 1;
+    public Color faction;
 
     //Initializes the outlets and bitcoins
     private void Start() {
@@ -18,21 +22,32 @@ public class Capturer : MonoBehaviour {
         if (c != null) {
             if (b)
                 capturable = c;
-            else
+            else {
                 capturable = null;
+                StopCapture();
+            }
         }
     }
 
     //Debugging stuff, for now
     void Update () {
         if (Input.GetKeyDown("space"))
-            Capture();
+            AttemptCapture();
+
+        if (Input.GetKeyUp("space"))
+            StopCapture();
 
         if (Input.GetKeyDown("c"))
             Debug.Log("Bitcoin: " + bitcoin + " Outlets: " + outlets);
 
         if (Input.GetKeyDown("x"))
             PowerSpike();
+
+        if (timeToCap > 0) {
+            timeToCap -= Time.deltaTime;
+        } else if (timeToCap <= 0 && isCaping) {
+            Capture();
+        }
     }
 
     //Called whenever there is a powerspike, makes bitcoin
@@ -55,10 +70,20 @@ public class Capturer : MonoBehaviour {
         captured.Remove(other);
     }
 
+    void StopCapture() {
+        timeToCap = 0;
+        isCaping = false;
+    }
+
+    void AttemptCapture () {
+        timeToCap = CAPTURE_TIME;
+        isCaping = true;
+    }
+
     //Captures a boy
     void Capture () {
         Capturable c = capturable.GetComponent<Capturable>();
-        c.GetCaptured(this);
+        c.GetCaptured(this, faction);
 
         if (!captured.Contains(capturable)) {
             captured.Add(capturable);
