@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 82890728}
   - component: {fileID: 82890730}
   - component: {fileID: 82890729}
+  - component: {fileID: 82890732}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -221,7 +222,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 82890723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.87, z: 0}
+  m_LocalPosition: {x: -8.42, y: 2.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -243,9 +244,13 @@ MonoBehaviour:
   cannonReticule: {fileID: 1718683095673816, guid: 4056ccf04b00e4c4bb377f625c6f1343,
     type: 2}
   cannonBeam: {fileID: 1463587317529568, guid: 5103064c9d858e74d92f5539c98efe10, type: 2}
+  taser: {fileID: 1908016037508904, guid: 9b0abaf3a8df0254a910baeab84f043a, type: 2}
   active_time: 1
   cannonActiveTime: 1
   cannonAimSpeed: 1
+  taserCoolDown: 2
+  taserSpeed: 10
+  taserShooting: 0
 --- !u!114 &82890729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +289,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a502a7dbf7b6a9479fe32e3a8bf2dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller_num: -1
+  controller_num: 0
+--- !u!114 &82890732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 82890723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f7f260249e3ea4590e241d7702b7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlets: 0
+  bitcoin: 0
+  faction: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &344012297
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +400,7 @@ GameObject:
   - component: {fileID: 533746063}
   - component: {fileID: 533746062}
   - component: {fileID: 533746061}
+  - component: {fileID: 533746069}
   m_Layer: 0
   m_Name: Egg (1)
   m_TagString: Untagged
@@ -405,7 +425,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533746060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97c00d27c0ae27e43841c28cbe70b33f, type: 3}
   m_Name: 
@@ -421,7 +441,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533746060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71394c6db08ef7a478429b3dbb4cc8c4, type: 3}
   m_Name: 
@@ -431,9 +451,13 @@ MonoBehaviour:
   cannonReticule: {fileID: 1718683095673816, guid: 4056ccf04b00e4c4bb377f625c6f1343,
     type: 2}
   cannonBeam: {fileID: 1463587317529568, guid: 5103064c9d858e74d92f5539c98efe10, type: 2}
+  taser: {fileID: 1908016037508904, guid: 9b0abaf3a8df0254a910baeab84f043a, type: 2}
   active_time: 1
   cannonActiveTime: 1
   cannonAimSpeed: 1
+  taserCoolDown: 2
+  taserSpeed: 10
+  taserShooting: 0
 --- !u!50 &533746064
 Rigidbody2D:
   serializedVersion: 4
@@ -460,7 +484,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533746060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a502a7dbf7b6a9479fe32e3a8bf2dc8, type: 3}
   m_Name: 
@@ -538,6 +562,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &533746069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533746060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f7f260249e3ea4590e241d7702b7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlets: 0
+  bitcoin: 0
+  faction: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &549574303
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +649,52 @@ Transform:
   - {fileID: 1757535137}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &550538290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 550538292}
+  - component: {fileID: 550538291}
+  m_Layer: 0
+  m_Name: InControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &550538291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 550538290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b5e8de77c5b4597ae7fbfb49a95e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logDebugInfo: 0
+  invertYAxis: 0
+  enableXInput: 0
+  useFixedUpdate: 0
+  dontDestroyOnLoad: 0
+  customProfiles: []
+--- !u!4 &550538292
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 550538290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1757535136
 GameObject:
