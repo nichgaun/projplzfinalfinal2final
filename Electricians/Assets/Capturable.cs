@@ -13,6 +13,16 @@ public class Capturable : MonoBehaviour {
         return myType;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            owner.Uncapture(gameObject);
+            GetUncaptured();
+        }
+
+    }
+
     void OnTriggerEnter2D (Collider2D other) {
         if (other.GetComponent<Capturer> () != null)
             other.GetComponent<Capturer>().CanCapture(gameObject, true);
@@ -31,7 +41,7 @@ public class Capturable : MonoBehaviour {
         GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
-    public void GetUncaptured(Capturer other) {
+    public void GetUncaptured() {
         owner = null;
         GetComponent<SpriteRenderer>().color = Color.white;
     }
