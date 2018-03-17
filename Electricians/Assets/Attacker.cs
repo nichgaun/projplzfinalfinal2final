@@ -5,8 +5,11 @@ using UnityEngine;
 public class Attacker : MonoBehaviour {
 	public GameObject weapon;
 
-	void OnEnable() {
+	void Start() {
 		weapon = Instantiate(weapon, gameObject.transform, false);
+	}
+
+	void OnEnable() {
 		weapon.GetComponent<BoxCollider2D>().enabled = false;
 	}
 
