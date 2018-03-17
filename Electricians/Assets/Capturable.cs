@@ -13,6 +13,7 @@ public class Capturable : MonoBehaviour {
         return myType;
     }
 
+    //Debugging so that I can uncapture things without other players
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -33,6 +34,7 @@ public class Capturable : MonoBehaviour {
             other.GetComponent<Capturer>().CanCapture(gameObject, false);
     }
 
+    //Gets captured by a player
     public void GetCaptured (Capturer other) {
         if (owner != null && other != owner)
             owner.Uncapture(gameObject);
@@ -41,6 +43,7 @@ public class Capturable : MonoBehaviour {
         GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
+    //Only for debugging
     public void GetUncaptured() {
         owner = null;
         GetComponent<SpriteRenderer>().color = Color.white;
