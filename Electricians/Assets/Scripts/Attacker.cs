@@ -3,24 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour {
-	public GameObject weapon;
+	public GameObject meleeWeapon;
+	public GameObject cannonReticule;
+	public GameObject cannonBeam;
 
 	public float active_time = 1f;
+	public float cannonActiveTime = 1f;
 
 	void Start() {
-		weapon = Instantiate(weapon, gameObject.transform, false);
-		weapon.SetActive (false);
+		meleeWeapon = Instantiate (meleeWeapon, gameObject.transform, false);
+		cannonReticule = Instantiate (cannonReticule);
+		cannonBeam = Instantiate (cannonBeam);
+		meleeWeapon.SetActive (false);
+		cannonReticule.SetActive (false);
+		cannonBeam.SetActive (false);
 	}
 
     void Update() {
-		if (Input.GetKeyDown("q")) {
-			StartCoroutine(fireWeapon());
+		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
+			StartCoroutine(fireWeapon ());
+		}
+		cannonReticule.SetActive(Input.GetKey("e") && !cannonReticule.activeInHierarchy);
+		if (Input.GetKeyUp ("e") && !cannonBeam.activeInHierarchy) {
+			StartCoroutine (fireCannon ());
 		}
     }
 
 	IEnumerator fireWeapon() {
-		weapon.SetActive (true);
+		meleeWeapon.SetActive (true);
 		yield return new WaitForSeconds(active_time);
-		weapon.SetActive (false);
+		meleeWeapon.SetActive (false);
+	}
+
+	IEnumerator fireCannon() {
+		cannonBeam.SetActive (true);
+		yield return new WaitForSeconds(cannonActiveTime);
+		cannonBeam.SetActive (false);
 	}
 }
