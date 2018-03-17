@@ -34,10 +34,10 @@ public class Attacker : MonoBehaviour {
 				cannonReticule.SetActive (false);
 			} else {
 				if (Input.GetKey ("d")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, 0);
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
 				}
 				if (Input.GetKey ("a")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, 0);
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
 				}
 			}
 		} else if (nextCannonAiming) {
@@ -54,7 +54,7 @@ public class Attacker : MonoBehaviour {
 	}
 
 	IEnumerator fireCannon() {
-		cannonBeam.transform.position = cannonReticule.transform.position;
+		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, cannonBeam.transform.localScale.y / 2);
 		cannonBeam.SetActive (true);
 		yield return new WaitForSeconds(cannonActiveTime);
 		cannonBeam.SetActive (false);
