@@ -24,11 +24,11 @@ namespace InControl
 
 		public static VersionInfo InControlVersion()
 		{
-			return new VersionInfo() {
-				Major = 1,
-				Minor = 4,
-				Patch = 4,
-				Build = 4327
+            return new VersionInfo() {
+                Major = 1,
+                Minor = 4,
+                Patch = 4,
+                Build = 4359
 			};
 		}
 
