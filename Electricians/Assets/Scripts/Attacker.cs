@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
@@ -12,9 +12,8 @@ public class Attacker : MonoBehaviour {
 	public float active_time = 1f;
 	public float cannonActiveTime = 1f;
 	public float cannonAimSpeed = 2f;
-    public float taserSpeed = 10f;
 
-    private bool cannonAiming;
+	private bool cannonAiming;
     public bool taserShooting;
 
 	void Start() {
@@ -25,13 +24,9 @@ public class Attacker : MonoBehaviour {
 		cannonReticule.SetActive (false);
 		cannonBeam.SetActive (false);
 		cannonAiming = false;
-        taserShooting = true;
 	}
 
     void Update() {
-		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
-			StartCoroutine(fireWeapon ());
-		}
 
         Debug.Log(InputManager.Devices.Count);
         if (GetComponent<ControllerController>().controller.Action2.IsPressed) {
@@ -39,25 +34,36 @@ public class Attacker : MonoBehaviour {
             fireTaser();
         }
 
-		bool nextCannonAiming = Input.GetKey ("e") && !cannonBeam.activeInHierarchy;
+		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
+			StartCoroutine(fireWeapon ());
+		}
+		bool canCannon = GetComponent<Capturer>().outlets >= 2;
+		bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
 		if (cannonAiming) {
 			if (!nextCannonAiming) {
-				StartCoroutine (fireCannon ());
-				cannonReticule.SetActive (false);
+				if (canCannon) {
+					StartCoroutine (fireCannon ());
+				}
 			} else {
 				if (Input.GetKey ("d")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, 0);
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
 				}
 				if (Input.GetKey ("a")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, 0);
+					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
 				}
 			}
 		} else if (nextCannonAiming) {
-			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, 0);
+			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, cannonReticule.transform.localScale.y / 2);
 		}
 		cannonAiming = nextCannonAiming;
 		cannonReticule.SetActive (cannonAiming);
     }
+
+	IEnumerator fireWeapon() {
+		meleeWeapon.SetActive (true);
+		yield return new WaitForSeconds(active_time);
+		meleeWeapon.SetActive (false);
+	}
 
     public void fireTaser () {
         if (!taserShooting) {
@@ -69,14 +75,8 @@ public class Attacker : MonoBehaviour {
         }
     }
 
-	IEnumerator fireWeapon () {
-		meleeWeapon.SetActive (true);
-		yield return new WaitForSeconds(active_time);
-		meleeWeapon.SetActive (false);
-	}
-
-	IEnumerator fireCannon () {
-		cannonBeam.transform.position = cannonReticule.transform.position;
+	IEnumerator fireCannon() {
+		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, cannonBeam.transform.localScale.y / 2);
 		cannonBeam.SetActive (true);
 		yield return new WaitForSeconds(cannonActiveTime);
 		cannonBeam.SetActive (false);
