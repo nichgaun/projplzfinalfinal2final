@@ -9,20 +9,10 @@ public class Attackable : MonoBehaviour {
 		invuln = 0;
 	}
 
-	void OnTriggerStay2D(Collider2D other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		Knockback kb = other.GetComponent<Knockback>();
 		if (kb != null) {
 			GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, -kb.force));
 		}
-	}
-
-    void Update() {
-		if (Input.GetKeyDown("q")) {
-			StartCoroutine(fireWeapon());
-		}
-    }
-
-	IEnumerator fireWeapon() {
-		yield return new WaitForSeconds(1);
 	}
 }
