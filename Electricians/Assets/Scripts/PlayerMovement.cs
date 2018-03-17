@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float jump_height = 1f;
 	public float jump_time = 1f;
 
-	bool grounded = false;
+	public bool grounded = false;
 	bool jumping = false;
 
 	void Start () {
