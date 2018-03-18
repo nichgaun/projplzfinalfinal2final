@@ -30,34 +30,39 @@ public class Attacker : MonoBehaviour {
 
     void Update() {
 
-		if (GetComponent<ControllerController> ().controller != null && GetComponent<ControllerController>().controller.RightTrigger.IsPressed) {
-            fireTaser();
-        }
-
-		if (Input.GetKeyDown("q") && !meleeWeapon.activeInHierarchy) {
-			StartCoroutine(fireWeapon ());
-		}
-		bool canCannon = GetComponent<Capturer>().outlets >= 2;
-		// print (GetComponent<Capturer>().outlets);
-		bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
-		if (cannonAiming) {
-			if (!nextCannonAiming) {
-				if (canCannon) {
-					StartCoroutine (fireCannon ());
-				}
-			} else {
-				if (Input.GetKey ("d")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
-				}
-				if (Input.GetKey ("a")) {
-					cannonReticule.transform.position = new Vector2(cannonReticule.transform.position.x - cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
-				}
+		if (!GetComponent<Attackable>().dead) {
+			if (GetComponent<ControllerController> ().controller != null && GetComponent<ControllerController> ().controller.RightTrigger.IsPressed) {
+				fireTaser ();
 			}
-		} else if (nextCannonAiming) {
-			cannonReticule.transform.position = new Vector2(gameObject.transform.position.x, cannonReticule.transform.localScale.y / 2);
+
+			if (Input.GetKeyDown ("q") && !meleeWeapon.activeInHierarchy) {
+				StartCoroutine (fireWeapon ());
+			}
+			bool canCannon = GetComponent<Capturer> ().outlets >= 2;
+			// print (GetComponent<Capturer>().outlets);
+			bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
+			if (cannonAiming) {
+				if (!nextCannonAiming) {
+					if (canCannon) {
+						StartCoroutine (fireCannon ());
+					}
+				} else {
+					if (Input.GetKey ("d")) {
+						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
+					}
+					if (Input.GetKey ("a")) {
+						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x - cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
+					}
+				}
+			} else if (nextCannonAiming) {
+				cannonReticule.transform.position = new Vector2 (gameObject.transform.position.x, cannonReticule.transform.localScale.y / 2);
+			}
+			cannonAiming = nextCannonAiming;
+			cannonReticule.SetActive (cannonAiming);
+		} else {
+			cannonAiming = false;
+			cannonReticule.SetActive (false);
 		}
-		cannonAiming = nextCannonAiming;
-		cannonReticule.SetActive (cannonAiming);
     }
 
 	IEnumerator fireWeapon() {
