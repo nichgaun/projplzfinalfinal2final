@@ -87,12 +87,13 @@ public class Capturer : MonoBehaviour {
         if (capturable != null) {
             Capturable c = capturable.GetComponent<Capturable>();
             c.GetCaptured(this, faction);
-			print ("A");
+
             if (!captured.Contains(capturable)) {
-				print ("B");
                 captured.Add(capturable);
-                if (IsOutlet(capturable))
-                    outlets++;
+				if (IsOutlet (capturable)) {
+					print ("a");
+					outlets++;
+				}
             }
         }
     }

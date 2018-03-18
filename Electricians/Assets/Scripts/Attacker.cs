@@ -38,6 +38,7 @@ public class Attacker : MonoBehaviour {
 			StartCoroutine(fireWeapon ());
 		}
 		bool canCannon = GetComponent<Capturer>().outlets >= 2;
+		// print (GetComponent<Capturer>().outlets);
 		bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
 		if (cannonAiming) {
 			if (!nextCannonAiming) {
@@ -60,6 +61,7 @@ public class Attacker : MonoBehaviour {
     }
 
 	IEnumerator fireWeapon() {
+		Physics2D.IgnoreCollision (meleeWeapon.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		meleeWeapon.SetActive (true);
 		yield return new WaitForSeconds(active_time);
 		meleeWeapon.SetActive (false);
