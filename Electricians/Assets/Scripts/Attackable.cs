@@ -11,7 +11,6 @@ public class Attackable : MonoBehaviour {
 	void Start() {
 		GameObject deathObj = new GameObject ();
 		deathSe = deathObj.AddComponent<SpriteEffect> ();
-		deathObj.GetComponent<SpriteRenderer> ().sortingOrder = 2;
 		dead = false;
 	}
 

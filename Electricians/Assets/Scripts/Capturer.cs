@@ -23,7 +23,6 @@ public class Capturer : MonoBehaviour {
     }
 
     void RenderOutletCount () {
-		return;
         for (int i = 0; i < TOTAL_OUTLETS; i++) {
             Renderer renderI = outletIcons[i].GetComponent<Renderer>();
             if (i < outlets) {
