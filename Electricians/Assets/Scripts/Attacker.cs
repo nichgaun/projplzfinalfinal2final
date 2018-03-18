@@ -11,9 +11,13 @@ public class Attacker : MonoBehaviour {
 
 	public float active_time = 1f;
 	public float cannonActiveTime = 1f;
-	public float cannonAimSpeed = 2f;
+	public float cannonAimSpeed = 0.1f;
     public float taserCoolDown = 2f;
     public float taserSpeed = 10f;
+	float meleeCool = 1f;
+	public float meleeCoolCur = 0f;
+	float cannonCool = 3f;
+	public float cannonCoolCur = 0f;
 
 	private bool cannonAiming;
     public bool taserShooting;
@@ -31,37 +35,47 @@ public class Attacker : MonoBehaviour {
     void Update() {
 
 		if (!GetComponent<Attackable>().dead) {
-			if (GetComponent<ControllerController> ().controller != null && GetComponent<ControllerController> ().controller.RightTrigger.IsPressed) {
+			bool canGun = GetComponent<Capturer> ().outlets >= 0;
+			bool canCannon = cannonCoolCur <= 0 && GetComponent<Capturer> ().outlets >= 0;
+			if (canGun && GetComponent<ControllerController> ().controller != null && GetComponent<ControllerController> ().controller.RightTrigger.IsPressed) {
 				fireTaser ();
 			}
 
-			if (Input.GetKeyDown ("q") && !meleeWeapon.activeInHierarchy) {
+			if (meleeCoolCur <= 0 && Input.GetKeyDown ("q") && !meleeWeapon.activeInHierarchy) {
+				meleeCoolCur = meleeCool;
 				StartCoroutine (fireWeapon ());
 			}
-			bool canCannon = GetComponent<Capturer> ().outlets >= 2;
 			// print (GetComponent<Capturer>().outlets);
 			bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
 			if (cannonAiming) {
 				if (!nextCannonAiming) {
 					if (canCannon) {
+						cannonCoolCur = cannonCool;
 						StartCoroutine (fireCannon ());
 					}
 				} else {
 					if (Input.GetKey ("d")) {
-						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x + cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
+						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x + cannonAimSpeed, 4.12f);
 					}
 					if (Input.GetKey ("a")) {
-						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x - cannonAimSpeed, cannonReticule.transform.localScale.y / 2);
+						cannonReticule.transform.position = new Vector2 (cannonReticule.transform.position.x - cannonAimSpeed, 4.12f);
 					}
 				}
 			} else if (nextCannonAiming) {
-				cannonReticule.transform.position = new Vector2 (gameObject.transform.position.x, cannonReticule.transform.localScale.y / 2);
+				cannonReticule.transform.position = new Vector2 (gameObject.transform.position.x, 4.12f);
 			}
 			cannonAiming = nextCannonAiming;
 			cannonReticule.SetActive (cannonAiming);
 		} else {
 			cannonAiming = false;
 			cannonReticule.SetActive (false);
+		}
+		if (cannonCoolCur >= 0) {
+			cannonCoolCur -= Time.deltaTime;
+		}
+		if (meleeCoolCur >= 0) {
+			print (meleeCoolCur);
+			meleeCoolCur -= Time.deltaTime;
 		}
     }
 
@@ -92,7 +106,7 @@ public class Attacker : MonoBehaviour {
     }
 
 	IEnumerator fireCannon() {
-		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, cannonBeam.transform.localScale.y / 2);
+		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, 4.12f);
 		cannonBeam.SetActive (true);
 		Physics2D.IgnoreCollision (cannonBeam.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		yield return new WaitForSeconds(cannonActiveTime);

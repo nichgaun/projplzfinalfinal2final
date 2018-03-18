@@ -863,9 +863,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 0}
-  meleeDeathSprite: {fileID: 0}
-  gunDeathSprite: {fileID: 0}
-  cannonDeathSprite: {fileID: 0}
+  meleeDeathSprite: {fileID: 21300000, guid: 2f9660ead35784b50bbf77c20970d1c4, type: 3}
+  gunDeathSprite: {fileID: 21300000, guid: 9c1041fe2a816433685559b750b674cd, type: 3}
+  cannonDeathSprite: {fileID: 21300000, guid: e512e4fff9603445cbb74cb22f5113ce, type: 3}
   dead: 0
 --- !u!114 &261540648
 MonoBehaviour:
@@ -886,9 +886,11 @@ MonoBehaviour:
   taser: {fileID: 1908016037508904, guid: 9b0abaf3a8df0254a910baeab84f043a, type: 2}
   active_time: 0.3
   cannonActiveTime: 1
-  cannonAimSpeed: 2
+  cannonAimSpeed: 0.1
   taserCoolDown: 2
   taserSpeed: 10
+  meleeCoolCur: 0
+  cannonCoolCur: 0
   taserShooting: 0
 --- !u!114 &261540649
 MonoBehaviour:
@@ -2235,7 +2237,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 951519804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 321263875}
@@ -5170,9 +5172,11 @@ MonoBehaviour:
   taser: {fileID: 1908016037508904, guid: 9b0abaf3a8df0254a910baeab84f043a, type: 2}
   active_time: 0.3
   cannonActiveTime: 1
-  cannonAimSpeed: 2
+  cannonAimSpeed: 0.1
   taserCoolDown: 2
   taserSpeed: 10
+  meleeCoolCur: 0
+  cannonCoolCur: 0
   taserShooting: 0
 --- !u!114 &2125750994
 MonoBehaviour:

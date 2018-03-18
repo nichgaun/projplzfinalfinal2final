@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour {
 	public float force;
+	public enum KillType {Melee, Gun, Cannon};
+	public KillType myType;
 }
