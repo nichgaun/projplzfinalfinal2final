@@ -30,7 +30,7 @@ public class Attacker : MonoBehaviour {
 
     void Update() {
 
-        if (GetComponent<ControllerController>().controller.RightTrigger.IsPressed) {
+		if (GetComponent<ControllerController> ().controller != null && GetComponent<ControllerController>().controller.RightTrigger.IsPressed) {
             fireTaser();
         }
 
