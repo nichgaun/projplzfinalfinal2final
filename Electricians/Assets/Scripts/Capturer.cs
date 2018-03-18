@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Capturer : MonoBehaviour {
+    const int TOTAL_OUTLETS = 6;
     GameObject capturable = null;
     GameObject bitcoinMeter;
-    List<GameObject> outletIcons = new List<GameObject>();
     List<GameObject> captured = new List<GameObject>();
+    public List<GameObject> outletIcons = new List<GameObject>(6);
     public int outlets, bitcoin;
     float timeToCap = 0;
     bool isCaping;
@@ -18,6 +19,17 @@ public class Capturer : MonoBehaviour {
     private void Start () {
         outlets = 0;
         bitcoin = 0;
+    }
+
+    void RenderOutletCount () {
+        for (int i = 0; i < TOTAL_OUTLETS; i++) {
+            Renderer renderI = outletIcons[i].GetComponent<Renderer>();
+            if (i < outlets) {
+                renderI.enabled = true;
+            } else {
+                renderI.enabled = false;
+            }
+        }
     }
 
     //Is called by a capturable dude when it can be captured by this guy
@@ -36,6 +48,8 @@ public class Capturer : MonoBehaviour {
 
     //Debugging stuff, for now
     void Update () {
+        RenderOutletCount();
+
         if (Input.GetKeyDown("e"))
             AttemptCapture();
 
@@ -89,7 +103,7 @@ public class Capturer : MonoBehaviour {
     void Capture () {
         if (capturable != null) {
             Capturable c = capturable.GetComponent<Capturable>();
-            c.GetCaptured(this, faction);
+            c.GetCaptured(this);
 
             if (!captured.Contains(capturable)) {
                 captured.Add(capturable);
