@@ -23,9 +23,9 @@ public class Attackable : MonoBehaviour {
 		PlayerMovement pm = GetComponent<PlayerMovement>();
 		if (pm.grounded) {
 			transform.position = spawn.transform.position;
-		} else {
+            StartCoroutine(respawn());
+        } else {
 			GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
-			StartCoroutine(respawn ());
 		}
 	}
 
