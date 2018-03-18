@@ -15,21 +15,18 @@ public class Attackable : MonoBehaviour {
 		Knockback kb = other.GetComponent<Knockback>();
         PlayerMovement pm = GetComponent<PlayerMovement>();
 
-        Debug.Log("KILLDSV ME PLS");
-
 		if (kb != null) {
             if (pm.grounded) {
 				transform.position = spawn.transform.position;
 
             } else {
-                Debug.Log("zapped");
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
 				StartCoroutine(respawn ());
             }
 		}
 	}
 
-	IEnumerable respawn() {
+	IEnumerator respawn() {
 		enabled = false;
 		yield return new WaitForSeconds (2);
 		enabled = true;
