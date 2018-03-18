@@ -60,7 +60,11 @@ public class Capturable : MonoBehaviour {
 
         owner = other;
         //Debug.Log(c);
-		GetComponent<SpriteRenderer>().sprite = owner.capSprite;
+		if (myType == ResourceType.Outlet) {
+			GetComponent<SpriteRenderer> ().sprite = owner.capSprite;
+		} else {
+			GetComponent<SpriteRenderer> ().sprite = owner.compSprite;
+		}
 		//GetComponent<SpriteRenderer>().enabled = true;
     }
 

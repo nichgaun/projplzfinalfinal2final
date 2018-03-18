@@ -14,7 +14,7 @@ public class Capturer : MonoBehaviour {
     bool isCaping;
     const float CAPTURE_TIME = 1;
     public Color faction;
-	public Sprite capSprite;
+	public Sprite capSprite, compSprite;
 
     //Initializes the outlets and bitcoins
     private void Start () {

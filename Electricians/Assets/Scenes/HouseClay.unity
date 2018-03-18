@@ -838,6 +838,7 @@ MonoBehaviour:
   bitcoin: 0
   faction: {r: 0, g: 0, b: 0, a: 0}
   capSprite: {fileID: 0}
+  compSprite: {fileID: 21300000, guid: c25d6629f8422490cbe26f70a0d790c4, type: 3}
 --- !u!114 &261540646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5217,6 +5218,7 @@ MonoBehaviour:
   bitcoin: 0
   faction: {r: 0, g: 0, b: 0, a: 0}
   capSprite: {fileID: 0}
+  compSprite: {fileID: 21300000, guid: 79272b6d227064fe0b5a4e2de379b677, type: 3}
 --- !u!95 &2125750997
 Animator:
   serializedVersion: 3
