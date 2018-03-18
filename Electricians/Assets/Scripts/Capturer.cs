@@ -8,12 +8,13 @@ public class Capturer : MonoBehaviour {
     GameObject bitcoinMeter;
     List<GameObject> captured = new List<GameObject>();
     public List<GameObject> outletIcons = new List<GameObject>(6);
-    public int outlets, bitcoin;
+	public int outlets;
+	public float bitcoin;
     float timeToCap = 0;
     bool isCaping;
     const float CAPTURE_TIME = 1;
     public Color faction;
-	public Sprite capSprite;
+	public Sprite capSprite, compSprite;
 
     //Initializes the outlets and bitcoins
     private void Start () {
@@ -22,6 +23,7 @@ public class Capturer : MonoBehaviour {
     }
 
     void RenderOutletCount () {
+		return;
         for (int i = 0; i < TOTAL_OUTLETS; i++) {
             Renderer renderI = outletIcons[i].GetComponent<Renderer>();
             if (i < outlets) {
@@ -49,24 +51,22 @@ public class Capturer : MonoBehaviour {
     //Debugging stuff, for now
     void Update () {
         RenderOutletCount();
+		if (!GetComponent<Attackable> ().dead) {
+			if (Input.GetKeyDown ("e"))
+				AttemptCapture ();
 
-        if (Input.GetKeyDown("e"))
-            AttemptCapture();
+			if (Input.GetKeyUp ("e"))
+				StopCapture ();
+			
+			if (Input.GetKeyDown ("x"))
+				PowerSpike ();
 
-        if (Input.GetKeyUp("e"))
-            StopCapture();
-
-        if (Input.GetKeyDown("c"))
-            Debug.Log("Bitcoin: " + bitcoin + " Outlets: " + outlets);
-
-        if (Input.GetKeyDown("x"))
-            PowerSpike();
-
-        if (timeToCap > 0) {
-            timeToCap -= Time.deltaTime;
-        } else if (timeToCap <= 0 && isCaping) {
-            Capture();
-        }
+			if (timeToCap > 0) {
+				timeToCap -= Time.deltaTime;
+			} else if (timeToCap <= 0 && isCaping) {
+				Capture ();
+			}
+		}
     }
 
     //Called whenever there is a powerspike, makes bitcoin
