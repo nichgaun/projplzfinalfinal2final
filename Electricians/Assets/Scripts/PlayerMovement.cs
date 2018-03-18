@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody2D rb;
 	ControllerController cc;
+	SpriteRenderer sr;
 
     public float move_speed = 5f;
     public float acceleration = 35f;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		cc = GetComponent<ControllerController> ();
+		sr = GetComponent<SpriteRenderer> ();
 	}
 
 	void Update () {
@@ -47,6 +49,12 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		} else {
 			DirectionalInput.x = cc.controller.LeftStickX;
+			if (DirectionalInput.x > 0) {
+				sr.flipX = false;
+			}
+			if (DirectionalInput.x < 0) {
+				sr.flipX = true;
+			}
 		}
 
 		float target_speed = DirectionalInput.x * move_speed;
