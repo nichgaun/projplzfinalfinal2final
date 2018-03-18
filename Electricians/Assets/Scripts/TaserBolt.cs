@@ -6,8 +6,11 @@ public class TaserBolt : MonoBehaviour {
 
     public Attacker origin;
 
-    public void OnCollisionEnter2D (Collision2D collision) {
-        origin.taserShooting = false;
-        Destroy(gameObject);
+    public void OnTriggerEnter2D (Collider2D collision) {
+        Attacker a = collision.gameObject.GetComponent<Attacker>();
+        if (a == null || a != origin) {
+            //origin.taserShooting = false;
+            Destroy(gameObject);
+        }
     }
 }

@@ -12,6 +12,7 @@ public class Attacker : MonoBehaviour {
 	public float active_time = 1f;
 	public float cannonActiveTime = 1f;
 	public float cannonAimSpeed = 2f;
+    public float taserCoolDown = 2f;
     public float taserSpeed = 10f;
 
 	private bool cannonAiming;
@@ -29,9 +30,7 @@ public class Attacker : MonoBehaviour {
 
     void Update() {
 
-        Debug.Log(InputManager.Devices.Count);
-        if (GetComponent<ControllerController>().controller.Action2.IsPressed) {
-            Debug.Log("PL<EASE GHOD END MY SUFFE?RING");
+        if (GetComponent<ControllerController>().controller.RightTrigger.IsPressed) {
             fireTaser();
         }
 
@@ -69,16 +68,26 @@ public class Attacker : MonoBehaviour {
     public void fireTaser () {
         if (!taserShooting) {
             taserShooting = true;
-            Vector2 direction = GetComponent<ControllerController>().controller.RightStick;
-            GameObject tb = Instantiate(taser, transform);
+            Vector2 direction_raw = GetComponent<ControllerController>().controller.RightStick;
+            Vector3 direction = new Vector3(direction_raw.x, direction_raw.y, 0);
+            Debug.Log(transform.position);
+            GameObject tb = Instantiate(taser, transform.position, Quaternion.identity);
+            Physics2D.IgnoreCollision(tb.GetComponent<Collider2D>(), GetComponent<Collider2D>());
             tb.GetComponent<Rigidbody2D>().velocity = direction * taserSpeed;
             tb.GetComponent<TaserBolt>().origin = this;
+            StartCoroutine(taserCool());
         }
+    }
+
+    IEnumerator taserCool () {
+        yield return new WaitForSeconds(taserCoolDown);
+        taserShooting = false;
     }
 
 	IEnumerator fireCannon() {
 		cannonBeam.transform.position = new Vector2(cannonReticule.transform.position.x, cannonBeam.transform.localScale.y / 2);
 		cannonBeam.SetActive (true);
+		Physics2D.IgnoreCollision (cannonBeam.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		yield return new WaitForSeconds(cannonActiveTime);
 		cannonBeam.SetActive (false);
 	}
