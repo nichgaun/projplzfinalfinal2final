@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Capturer : MonoBehaviour {
     GameObject capturable = null;
+    GameObject bitcoinMeter;
+    List<GameObject> outletIcons = new List<GameObject>();
     List<GameObject> captured = new List<GameObject>();
     public int outlets, bitcoin;
     float timeToCap = 0;
