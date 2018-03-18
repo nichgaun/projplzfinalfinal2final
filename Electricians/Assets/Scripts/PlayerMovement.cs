@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
 				sr.flipX = true;
 			}
 		}
+		GetComponent<Animator>().SetBool("moving", DirectionalInput != Vector2.zero);
 
 		float target_speed = DirectionalInput.x * move_speed;
 		float diff = target_speed - rb.velocity.x;
