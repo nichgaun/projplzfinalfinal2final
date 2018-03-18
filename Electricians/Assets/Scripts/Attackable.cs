@@ -9,9 +9,11 @@ public class Attackable : MonoBehaviour {
 		invuln = 0;
 	}
 
-	void OnTriggerStay2D(Collider2D other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		Knockback kb = other.GetComponent<Knockback>();
         PlayerMovement pm = GetComponent<PlayerMovement>();
+
+        Debug.Log("KILLDSV ME PLS");
 
 		if (kb != null) {
             if (pm.grounded) {
