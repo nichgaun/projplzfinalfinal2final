@@ -40,12 +40,13 @@ public class Capturable : MonoBehaviour {
 
         owner = other;
         //Debug.Log(c);
-        GetComponent<SpriteRenderer>().color = c;
+		GetComponent<SpriteRenderer>().sprite = owner.capSprite;
+		GetComponent<SpriteRenderer>().enabled = true;
     }
 
     //Only for debugging
     public void GetUncaptured () {
         owner = null;
-        GetComponent<SpriteRenderer>().color = Color.white;
+		GetComponent<SpriteRenderer> ().enabled = false;
     }
 }
