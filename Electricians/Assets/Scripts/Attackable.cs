@@ -12,17 +12,20 @@ public class Attackable : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Knockback kb = other.GetComponent<Knockback>();
-        PlayerMovement pm = GetComponent<PlayerMovement>();
-
+		Knockback kb = other.GetComponent<Knockback> ();
 		if (kb != null) {
-            if (pm.grounded) {
-				transform.position = spawn.transform.position;
+			StartCoroutine (knockback (kb));
+		}
+	}
 
-            } else {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
-				StartCoroutine(respawn ());
-            }
+	IEnumerator knockback(Knockback kb) {
+		yield return new WaitForFixedUpdate ();
+		PlayerMovement pm = GetComponent<PlayerMovement>();
+		if (pm.grounded) {
+			transform.position = spawn.transform.position;
+		} else {
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
+			StartCoroutine(respawn ());
 		}
 	}
 
