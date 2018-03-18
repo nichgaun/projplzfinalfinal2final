@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attackable : MonoBehaviour {
+	public GameObject spawn;
+
 	float invuln;
 
 	void OnEnable() {
@@ -13,15 +15,20 @@ public class Attackable : MonoBehaviour {
 		Knockback kb = other.GetComponent<Knockback>();
         PlayerMovement pm = GetComponent<PlayerMovement>();
 
-        Debug.Log("KILLDSV ME PLS");
-
 		if (kb != null) {
             if (pm.grounded) {
-                Debug.Log("ded");
+				transform.position = spawn.transform.position;
+
             } else {
-                Debug.Log("zapped");
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(kb.force, kb.force / 2));
+				StartCoroutine(respawn ());
             }
 		}
+	}
+
+	IEnumerator respawn() {
+		enabled = false;
+		yield return new WaitForSeconds (2);
+		enabled = true;
 	}
 }
