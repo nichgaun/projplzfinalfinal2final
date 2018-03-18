@@ -38,6 +38,7 @@ public class Attacker : MonoBehaviour {
 			StartCoroutine(fireWeapon ());
 		}
 		bool canCannon = GetComponent<Capturer>().outlets >= 2;
+		// print (GetComponent<Capturer>().outlets);
 		bool nextCannonAiming = canCannon && Input.GetKey ("r") && !cannonBeam.activeInHierarchy;
 		if (cannonAiming) {
 			if (!nextCannonAiming) {

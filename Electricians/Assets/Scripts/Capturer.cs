@@ -10,6 +10,7 @@ public class Capturer : MonoBehaviour {
     bool isCaping;
     const float CAPTURE_TIME = 1;
     public Color faction;
+	public Sprite capSprite;
 
     //Initializes the outlets and bitcoins
     private void Start () {
@@ -87,12 +88,12 @@ public class Capturer : MonoBehaviour {
         if (capturable != null) {
             Capturable c = capturable.GetComponent<Capturable>();
             c.GetCaptured(this, faction);
-			print ("A");
+
             if (!captured.Contains(capturable)) {
-				print ("B");
                 captured.Add(capturable);
-                if (IsOutlet(capturable))
-                    outlets++;
+				if (IsOutlet (capturable)) {
+					outlets++;
+				}
             }
         }
     }
