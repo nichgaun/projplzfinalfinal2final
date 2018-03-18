@@ -8,7 +8,8 @@ public class Capturer : MonoBehaviour {
     GameObject bitcoinMeter;
     List<GameObject> captured = new List<GameObject>();
     public List<GameObject> outletIcons = new List<GameObject>(6);
-    public int outlets, bitcoin;
+	public int outlets;
+	public float bitcoin;
     float timeToCap = 0;
     bool isCaping;
     const float CAPTURE_TIME = 1;

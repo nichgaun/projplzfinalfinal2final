@@ -5,6 +5,7 @@ using UnityEngine;
 public class Capturable : MonoBehaviour {
 
     Capturer owner;
+	public GameObject coin;
 
     public enum ResourceType {Computer, Outlet};
     public ResourceType myType;
@@ -19,6 +20,25 @@ public class Capturable : MonoBehaviour {
 			if (owner != null)
 				owner.Uncapture (gameObject);
 			GetUncaptured ();
+		}
+		if (myType == ResourceType.Computer) {
+			if (owner != null) {
+				float rate = 1f;
+				if (Object.FindObjectOfType<RotateSurgeSpikes>().is_surging)
+					rate = 10f;
+				else
+					rate = 0.5f;
+				float prevBitcoin = owner.bitcoin;
+				owner.bitcoin += Time.deltaTime * rate;
+				if (prevBitcoin % 1 > owner.bitcoin % 1) {
+					GameObject c = Instantiate (coin);
+					c.transform.position = (Vector2) transform.position + new Vector2 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f));
+					Coin cn = c.GetComponent<Coin> ();
+					cn.vel = new Vector2 (Random.Range (-0.1f, 0.1f), Random.Range (-0.1f, 0.1f)).normalized * 0.05f;
+					cn.destination = owner.gameObject;
+					c.SetActive (true);
+				}
+			}
 		}
 
     }

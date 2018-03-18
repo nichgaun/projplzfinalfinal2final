@@ -17,7 +17,7 @@ public class StairWalker : MonoBehaviour {
 	void Update () {
 		StartCoroutine(unstuff ());
 
-		if (Mathf.Abs (cc.controller.LeftStickY) < 0.7) {
+		if (cc.controller != null && Mathf.Abs (cc.controller.LeftStickY) < 0.7) {
 			recentered = true;
 		}
 
