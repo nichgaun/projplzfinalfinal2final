@@ -9,12 +9,12 @@ public class Attacker : MonoBehaviour {
 	public GameObject cannonBeam;
     public GameObject taser;
 
-	public float active_time = 1f;
+	public float active_time = 0.5f;
 	public float cannonActiveTime = 1f;
 	public float cannonAimSpeed = 0.1f;
     public float taserCoolDown = 2f;
     public float taserSpeed = 10f;
-	float meleeCool = 1f;
+	float meleeCool = 0.15f;
 	public float meleeCoolCur = 0f;
 	float cannonCool = 3f;
 	public float cannonCoolCur = 0f;

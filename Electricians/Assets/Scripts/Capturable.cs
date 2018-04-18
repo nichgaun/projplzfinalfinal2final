@@ -23,14 +23,13 @@ public class Capturable : MonoBehaviour {
 		}
 		if (myType == ResourceType.Computer) {
 			if (owner != null) {
-				float rate = 0.01f;
 				if (Object.FindObjectOfType<RotateSurgeSpikes>().is_surging)
-					rate = 0.05f;
+					rate = 0.01f;
 				else
-					rate = 0.5f;
+					rate = 0.05f;
 				float prevBitcoin = owner.bitcoin;
 				owner.bitcoin += Time.deltaTime * rate;
-				if (prevBitcoin % 1 > owner.bitcoin % 1) {
+				if (prevBitcoin % 0.01 > owner.bitcoin % 0.01) {
 					GameObject c = Instantiate (coin);
 					c.transform.position = (Vector2) transform.position + new Vector2 (Random.Range (-0.5f, 0.5f), Random.Range (-0.5f, 0.5f));
 					Coin cn = c.GetComponent<Coin> ();
