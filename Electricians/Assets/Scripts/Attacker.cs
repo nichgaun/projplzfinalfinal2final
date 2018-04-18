@@ -21,11 +21,13 @@ public class Attacker : MonoBehaviour {
 
 	private bool cannonAiming;
     public bool taserShooting;
+	private Vector3 meleeOrig;
 
 	ControllerController cc;
 
 	void Start() {
 		meleeWeapon = Instantiate (meleeWeapon, gameObject.transform, false);
+		meleeOrig = meleeWeapon.transform.position;
 		cannonReticule = Instantiate (cannonReticule);
 		cannonBeam = Instantiate (cannonBeam);
 		meleeWeapon.SetActive (false);
@@ -34,6 +36,12 @@ public class Attacker : MonoBehaviour {
 		cannonAiming = false;
 
 		cc = GetComponent<ControllerController> ();
+	}
+
+	void FixedUpdate() {
+		bool flip = GetComponent<SpriteRenderer> ().flipX;
+		meleeWeapon.transform.position.Set(flip ? -meleeOrig.x : meleeOrig.x, meleeOrig.y, meleeOrig.z);
+		meleeWeapon.GetComponent<SpriteRenderer>().flipX = flip;
 	}
 
     void Update() {
