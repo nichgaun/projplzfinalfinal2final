@@ -22,6 +22,8 @@ public class Attacker : MonoBehaviour {
 	private bool cannonAiming;
     public bool taserShooting;
 
+	ControllerController cc;
+
 	void Start() {
 		meleeWeapon = Instantiate (meleeWeapon, gameObject.transform, false);
 		cannonReticule = Instantiate (cannonReticule);
@@ -30,6 +32,8 @@ public class Attacker : MonoBehaviour {
 		cannonReticule.SetActive (false);
 		cannonBeam.SetActive (false);
 		cannonAiming = false;
+
+		cc = GetComponent<ControllerController> ();
 	}
 
     void Update() {
@@ -41,7 +45,7 @@ public class Attacker : MonoBehaviour {
 				fireTaser ();
 			}
 
-			if (meleeCoolCur <= 0 && Input.GetKeyDown ("q") && !meleeWeapon.activeInHierarchy) {
+			if (meleeCoolCur <= 0 && (Input.GetKeyDown ("q") || (cc.controller != null && cc.controller.RightBumper.IsPressed)) && !meleeWeapon.activeInHierarchy) {
 				meleeCoolCur = meleeCool;
 				StartCoroutine (fireWeapon ());
 			}
