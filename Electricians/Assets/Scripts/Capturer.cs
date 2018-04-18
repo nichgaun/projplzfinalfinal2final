@@ -16,10 +16,14 @@ public class Capturer : MonoBehaviour {
     public Color faction;
 	public Sprite capSprite, compSprite;
 
+	ControllerController cc;
+
     //Initializes the outlets and bitcoins
     private void Start () {
         outlets = 0;
         bitcoin = 0;
+
+		cc = GetComponent<ControllerController> ();
     }
 
     void RenderOutletCount () {
