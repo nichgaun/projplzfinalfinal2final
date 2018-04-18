@@ -27,7 +27,7 @@ public class Attacker : MonoBehaviour {
 
 	void Start() {
 		meleeWeapon = Instantiate (meleeWeapon, gameObject.transform, false);
-		meleeOrig = meleeWeapon.transform.position;
+		meleeOrig = meleeWeapon.transform.localPosition;
 		cannonReticule = Instantiate (cannonReticule);
 		cannonBeam = Instantiate (cannonBeam);
 		meleeWeapon.SetActive (false);
