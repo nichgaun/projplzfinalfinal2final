@@ -40,7 +40,7 @@ public class Attacker : MonoBehaviour {
 
 	void FixedUpdate() {
 		bool flip = GetComponent<SpriteRenderer> ().flipX;
-		meleeWeapon.transform.position.Set(flip ? -meleeOrig.x : meleeOrig.x, meleeOrig.y, meleeOrig.z);
+		meleeWeapon.transform.position = new Vector3(flip ? -meleeOrig.x : meleeOrig.x, meleeOrig.y, meleeOrig.z);
 		meleeWeapon.GetComponent<SpriteRenderer>().flipX = flip;
 	}
 
