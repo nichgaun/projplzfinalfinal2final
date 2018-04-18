@@ -23,9 +23,9 @@ public class Capturable : MonoBehaviour {
 		}
 		if (myType == ResourceType.Computer) {
 			if (owner != null) {
-				float rate = 1f;
+				float rate = 0.01f;
 				if (Object.FindObjectOfType<RotateSurgeSpikes>().is_surging)
-					rate = 10f;
+					rate = 0.05f;
 				else
 					rate = 0.5f;
 				float prevBitcoin = owner.bitcoin;
