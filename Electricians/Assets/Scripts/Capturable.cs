@@ -23,6 +23,7 @@ public class Capturable : MonoBehaviour {
 		}
 		if (myType == ResourceType.Computer) {
 			if (owner != null) {
+				float rate;
 				if (Object.FindObjectOfType<RotateSurgeSpikes>().is_surging)
 					rate = 0.01f;
 				else
